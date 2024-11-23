@@ -60,18 +60,24 @@ app.registerExtension({
                 continue
               }
               column.sort((a: LGraphNode, b: LGraphNode) => {
-                const as = !(
-                  a.type === 'SaveImage' || a.type === 'PreviewImage'
-                )
-                const bs = !(
-                  b.type === 'SaveImage' || b.type === 'PreviewImage'
-                )
-                let r = Number(as) - Number(bs)
-                if (r === 0)
-                  r = (a.inputs?.length || 0) - (b.inputs?.length || 0)
-                if (r === 0)
-                  r = (a.outputs?.length || 0) - (b.outputs?.length || 0)
-                return r
+                const IMAGE_NODES: Array<string | null> = [
+                  'SaveImage',
+                  'PreviewImage'
+                ]
+                let sortResult =
+                  Number(!IMAGE_NODES.includes(a.type)) -
+                  Number(!IMAGE_NODES.includes(b.type))
+
+                if (sortResult === 0) {
+                  sortResult = (a.inputs?.length || 0) - (b.inputs?.length || 0)
+                }
+
+                if (sortResult === 0) {
+                  sortResult =
+                    (a.outputs?.length || 0) - (b.outputs?.length || 0)
+                }
+
+                return sortResult
               })
               let max_size = 100
               let y = margin + LiteGraph.NODE_TITLE_HEIGHT
