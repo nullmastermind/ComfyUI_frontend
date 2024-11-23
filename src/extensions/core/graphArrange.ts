@@ -5,112 +5,138 @@ import { LGraphNode } from '@comfyorg/litegraph/dist/LGraphNode'
 app.registerExtension({
   name: 'CmcLLM.GraphArrange',
   setup(app) {
-    const orig = LGraphCanvas.prototype.getCanvasMenuOptions
+    const originalGetCanvasMenuOptions =
+      LGraphCanvas.prototype.getCanvasMenuOptions
     LGraphCanvas.prototype.getCanvasMenuOptions = function (
       this: LGraphCanvas
     ) {
-      const options = orig.call(this)
+      const menuOptions = originalGetCanvasMenuOptions.call(this)
 
-      options.push({
+      menuOptions.push({
         content: '🧩 Organize nodes',
         callback: () => {
-          const arrangeGraph = function (this: any) {
-            const margin = 32
-            const ignores = new Set<string | null>(['Note'])
+          const arrangeGraphNodes = function (this: any) {
+            // Configuration
+            const nodeSpacing = 32
+            const excludedNodeTypes = new Set<string | null>(['Note'])
+            const imageNodeTypes: Array<string | null> = [
+              'SaveImage',
+              'PreviewImage'
+            ]
 
-            const nodes = this.computeExecutionOrder(false, true).filter(
-              (node: LGraphNode) => !ignores.has(node.type)
+            // Get nodes in execution order
+            const graphNodes = this.computeExecutionOrder(false, true).filter(
+              (node: LGraphNode) => !excludedNodeTypes.has(node.type)
             )
-            const columns: LGraphNode[][] = []
+            const nodeColumns: LGraphNode[][] = []
 
-            // Find node first use
-            for (let i = nodes.length - 1; i >= 0; i--) {
-              const node = nodes[i] as LGraphNode
-              let max = null
-              for (const out of node.outputs || []) {
-                if (out.links) {
-                  for (const link of out.links) {
-                    const outNode = app.graph.getNodeById(
-                      app.graph.links[link].target_id
+            // Calculate node levels based on connections
+            for (let i = graphNodes.length - 1; i >= 0; i--) {
+              const currentNode = graphNodes[i] as LGraphNode
+              let maxLevel = null
+
+              for (const output of currentNode.outputs || []) {
+                if (output.links) {
+                  for (const linkId of output.links) {
+                    const targetNode = app.graph.getNodeById(
+                      app.graph.links[linkId].target_id
                     )
-                    if (!outNode) continue
-                    const l = outNode._level - 1
-                    if (max === null) max = l
-                    else if (l < max) max = l
+                    if (!targetNode) continue
+
+                    const targetLevel = targetNode._level - 1
+                    if (maxLevel === null) maxLevel = targetLevel
+                    else if (targetLevel < maxLevel) maxLevel = targetLevel
                   }
                 }
               }
-              if (max != null) node._level = max
+              if (maxLevel != null) currentNode._level = maxLevel
             }
 
-            for (let i = 0; i < nodes.length; ++i) {
-              const node = nodes[i] as LGraphNode
-              const col = node._level || 1
-              if (!columns[col]) {
-                columns[col] = []
+            // Group nodes into columns
+            for (let i = 0; i < graphNodes.length; ++i) {
+              const currentNode = graphNodes[i] as LGraphNode
+              const columnIndex = currentNode._level || 1
+              if (!nodeColumns[columnIndex]) {
+                nodeColumns[columnIndex] = []
               }
-              columns[col].push(node)
+              nodeColumns[columnIndex].push(currentNode)
             }
 
-            let x = margin
+            // Position nodes in columns
+            let horizontalPosition = nodeSpacing
 
-            for (let i = 0; i < columns.length; ++i) {
-              const column = columns[i]
-              if (!column) {
-                continue
-              }
-              column.sort((a: LGraphNode, b: LGraphNode) => {
-                const IMAGE_NODES: Array<string | null> = [
-                  'SaveImage',
-                  'PreviewImage'
-                ]
+            for (
+              let columnIndex = 0;
+              columnIndex < nodeColumns.length;
+              ++columnIndex
+            ) {
+              const currentColumn = nodeColumns[columnIndex]
+              if (!currentColumn) continue
+
+              // Sort nodes within column
+              currentColumn.sort((nodeA: LGraphNode, nodeB: LGraphNode) => {
                 let sortResult =
-                  Number(!IMAGE_NODES.includes(a.type)) -
-                  Number(!IMAGE_NODES.includes(b.type))
+                  Number(!imageNodeTypes.includes(nodeA.type)) -
+                  Number(!imageNodeTypes.includes(nodeB.type))
 
                 if (sortResult === 0) {
-                  sortResult = (a.inputs?.length || 0) - (b.inputs?.length || 0)
+                  sortResult =
+                    (nodeA.inputs?.length || 0) - (nodeB.inputs?.length || 0)
                 }
 
                 if (sortResult === 0) {
                   sortResult =
-                    (a.outputs?.length || 0) - (b.outputs?.length || 0)
+                    (nodeA.outputs?.length || 0) - (nodeB.outputs?.length || 0)
                 }
 
                 return sortResult
               })
-              let max_size = 100
-              let y = margin + LiteGraph.NODE_TITLE_HEIGHT
-              for (let j = 0; j < column.length; ++j) {
-                const node = column[j]
-                node.pos[0] = x
-                node.pos[1] = y
-                const max_size_index = 0
-                if (node.size[max_size_index] > max_size) {
-                  max_size = node.size[max_size_index]
+
+              // Layout nodes vertically
+              let verticalPosition = nodeSpacing + LiteGraph.NODE_TITLE_HEIGHT
+              let maxColumnWidth = 100
+
+              for (
+                let nodeIndex = 0;
+                nodeIndex < currentColumn.length;
+                ++nodeIndex
+              ) {
+                const currentNode = currentColumn[nodeIndex]
+                currentNode.pos[0] = horizontalPosition
+                currentNode.pos[1] = verticalPosition
+
+                if (currentNode.size[0] > maxColumnWidth) {
+                  maxColumnWidth = currentNode.size[0]
                 }
-                const node_size_index = 1
-                y +=
-                  node.size[node_size_index] +
-                  margin +
+
+                verticalPosition +=
+                  currentNode.size[1] +
+                  nodeSpacing +
                   LiteGraph.NODE_TITLE_HEIGHT +
-                  j
+                  nodeIndex
               }
 
-              // Right align in column
-              for (let j = 0; j < column.length; ++j) {
-                const node = column[j]
-                node.pos[0] += max_size - node.size[0]
+              // Right align nodes in column
+              for (
+                let nodeIndex = 0;
+                nodeIndex < currentColumn.length;
+                ++nodeIndex
+              ) {
+                const currentNode = currentColumn[nodeIndex]
+                currentNode.pos[0] += maxColumnWidth - currentNode.size[0]
               }
-              x += max_size + margin
+
+              horizontalPosition += maxColumnWidth + nodeSpacing
             }
 
             this.setDirtyCanvas(true, true)
           }
-          arrangeGraph.apply(app.graph)
+          // Apply
+          arrangeGraphNodes.apply(app.graph)
         }
       })
-      return options
+
+      return menuOptions
     }
   }
 })
