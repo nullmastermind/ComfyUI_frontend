@@ -572,10 +572,12 @@ dialog::backdrop {
 }
 
 .litemenu-entry.has_submenu::after {
-  content: ">";
+  content: "▶";
   position: absolute;
-  top: 0;
-  right: 2px;
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+  font-size: 0.8em;
 }
 
 .litegraph.litecontextmenu,
@@ -587,10 +589,8 @@ dialog::backdrop {
 }
 
 .litegraph.litecontextmenu .litemenu-entry:hover:not(.disabled):not(.separator) {
-  background-color: var(--comfy-menu-bg) !important;
-  filter: brightness(155%);
+  background-color: var(--primary-bg) !important;
   will-change: transform;
-  color: var(--input-text);
 }
 
 .litegraph.litecontextmenu .litemenu-entry.submenu,
