@@ -6,7 +6,7 @@
       v-show="betaMenuEnabled && !workspaceState.focusMode"
       :class="{ dropzone: isDropZone, 'dropzone-active': isDroppable }"
     >
-      <h1 class="comfyui-logo mx-2">ComfyUI</h1>
+      <h1 class="comfyui-logo mx-2">{{ appLogo }}</h1>
       <CommandMenubar />
       <Divider layout="vertical" class="mx-2" />
       <div class="flex-grow">
@@ -72,6 +72,8 @@ eventBus.on((event: string, payload: any) => {
     isDroppable.value = payload.isOverlapping && payload.isDragging
   }
 })
+
+const appLogo = import.meta.env.VITE_APP_LOGO || 'ComfyUI'
 </script>
 
 <style scoped>

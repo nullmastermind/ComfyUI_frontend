@@ -11,8 +11,8 @@ import { useWorkflowStore } from '@/stores/workflowStore'
 import { useTitle } from '@vueuse/core'
 import { computed } from 'vue'
 
-const DEFAULT_TITLE = 'ComfyUI'
-const TITLE_SUFFIX = ' - ComfyUI'
+const DEFAULT_TITLE = import.meta.env.VITE_APP_LOGO
+const TITLE_SUFFIX = ` - ${DEFAULT_TITLE}`
 
 const executionStore = useExecutionStore()
 const executionText = computed(() =>

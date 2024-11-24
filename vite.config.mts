@@ -93,6 +93,8 @@ function getModuleName(id: string): string {
 
 const DEV_SERVER_COMFYUI_URL = process.env.DEV_SERVER_COMFYUI_URL || 'http://127.0.0.1:8188'
 
+process.env.VITE_APP_LOGO = process.env.VITE_APP_LOGO || 'ComfyUI';
+
 export default defineConfig({
   base: '',
   server: {
