@@ -64,9 +64,17 @@ export const CORE_KEYBINDINGS: Keybinding[] = [
   {
     combo: {
       key: 'o',
-      ctrl: true
+      ctrl: true,
+      shift: true
     },
     commandId: 'Comfy.OpenWorkflow'
+  },
+  {
+    combo: {
+      key: 'o',
+      ctrl: true
+    },
+    commandId: 'llm.OrganizeNodes'
   },
   {
     combo: {
