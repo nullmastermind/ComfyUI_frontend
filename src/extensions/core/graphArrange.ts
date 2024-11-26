@@ -1,4 +1,4 @@
-import { app } from '../../scripts/app'
+import { app } from '@/scripts/app'
 import { LGraphCanvas, LiteGraph } from '@comfyorg/litegraph'
 import { LGraphNode } from '@comfyorg/litegraph/dist/LGraphNode'
 
