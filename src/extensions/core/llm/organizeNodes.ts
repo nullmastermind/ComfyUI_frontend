@@ -2,7 +2,7 @@ import { app } from '@/scripts/app'
 import { LGraphCanvas, LGraphNode, LiteGraph } from '@comfyorg/litegraph'
 
 app.registerExtension({
-  name: 'CmcLLM.GraphArrange',
+  name: 'llm.OrganizeNodes',
   setup(app) {
     const originalGetCanvasMenuOptions =
       LGraphCanvas.prototype.getCanvasMenuOptions
