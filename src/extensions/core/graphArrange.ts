@@ -1,6 +1,5 @@
 import { app } from '@/scripts/app'
-import { LGraphCanvas, LiteGraph } from '@comfyorg/litegraph'
-import { LGraphNode } from '@comfyorg/litegraph/dist/LGraphNode'
+import { LGraphCanvas, LGraphNode, LiteGraph } from '@comfyorg/litegraph'
 
 app.registerExtension({
   name: 'CmcLLM.GraphArrange',
