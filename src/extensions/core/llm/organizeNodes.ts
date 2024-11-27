@@ -46,7 +46,7 @@ app.registerExtension({
 
 const arrangeGraphNodes = function (this: any) {
   // Configuration
-  const nodeSpacing = 32
+  const nodeSpacing = 64
   const excludedNodeTypes = new Set<string | null>(['Note'])
   const imageNodeTypes: Array<string | null> = ['SaveImage', 'PreviewImage']
 
