@@ -10,10 +10,8 @@ const TypeSlotEvent: any = {
   Disconnect: false
 }
 
-const _ID: string = 'DynamicNode'
-
 app.registerExtension({
-  name: 'llm.' + _ID,
+  name: 'llm.DynamicInputNode',
   async beforeRegisterNodeDef(nodeType: any, nodeData: any, app: any) {
     // Parse the nodeData.name for dynamic, type, and label
     const nameParts: string[] = nodeData.name.split(' ')
