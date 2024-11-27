@@ -15,12 +15,22 @@ const _ID: string = 'DynamicNode'
 app.registerExtension({
   name: 'llm.' + _ID,
   async beforeRegisterNodeDef(nodeType: any, nodeData: any, app: any) {
-    // skip the node if it is not the one we want
-    if (!nodeData.name.startsWith('Dynamic ')) {
+    // Parse the nodeData.name for dynamic, type, and label
+    const nameParts: string[] = nodeData.name.split(' ')
+    const isDynamic = nameParts.includes('--dynamic')
+    const typePart: string | undefined = nameParts.find((part: string) =>
+      part.startsWith('--type=')
+    )
+    const labelPart: string | undefined =
+      nameParts.find((part: string) => part.startsWith('--label=')) ||
+      typePart?.toUpperCase()
+
+    if (!isDynamic || !typePart || !labelPart) {
       return
     }
 
-    const [, addType, addPrefix] = nodeData.name.split(' ')
+    const addType = typePart.split('=')[1]
+    const addPrefix = labelPart.split('=')[1]
 
     const onNodeCreated = nodeType.prototype.onNodeCreated
     nodeType.prototype.onNodeCreated = async function () {
