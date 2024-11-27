@@ -21,5 +21,7 @@ import './widgetInputs'
 import './uploadAudio'
 import './electronAdapter'
 import './load3d'
+// LLM
 import './llm/organizeNodes'
 import './llm/showText'
+import './llm/dynamicNode'
