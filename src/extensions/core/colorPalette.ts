@@ -8,77 +8,77 @@ import { LGraphCanvas, LiteGraph } from '@comfyorg/litegraph'
 // Manage color palettes
 
 const colorPalettes: ColorPalettes = {
-  dark: {
-    id: 'dark',
-    name: 'Dark (Default)',
-    colors: {
-      node_slot: {
-        CLIP: '#FFD500', // bright yellow
-        CLIP_VISION: '#A8DADC', // light blue-gray
-        CLIP_VISION_OUTPUT: '#ad7452', // rusty brown-orange
-        CONDITIONING: '#FFA931', // vibrant orange-yellow
-        CONTROL_NET: '#6EE7B7', // soft mint green
-        IMAGE: '#64B5F6', // bright sky blue
-        LATENT: '#FF9CF9', // light pink-purple
-        MASK: '#81C784', // muted green
-        MODEL: '#B39DDB', // light lavender-purple
-        STYLE_MODEL: '#C2FFAE', // light green-yellow
-        VAE: '#FF6E6E', // bright red
-        NOISE: '#B0B0B0', // gray
-        GUIDER: '#66FFFF', // cyan
-        SAMPLER: '#ECB4B4', // very soft red
-        SIGMAS: '#CDFFCD', // soft lime green
-        TAESD: '#DCC274' // cheesecake
-      },
-      litegraph_base: {
-        BACKGROUND_IMAGE:
-          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQBJREFUeNrs1rEKwjAUhlETUkj3vP9rdmr1Ysammk2w5wdxuLgcMHyptfawuZX4pJSWZTnfnu/lnIe/jNNxHHGNn//HNbbv+4dr6V+11uF527arU7+u63qfa/bnmh8sWLBgwYJlqRf8MEptXPBXJXa37BSl3ixYsGDBMliwFLyCV/DeLIMFCxYsWLBMwSt4Be/NggXLYMGCBUvBK3iNruC9WbBgwYJlsGApeAWv4L1ZBgsWLFiwYJmCV/AK3psFC5bBggULloJX8BpdwXuzYMGCBctgwVLwCl7Be7MMFixYsGDBsu8FH1FaSmExVfAxBa/gvVmwYMGCZbBg/W4vAQYA5tRF9QYlv/QAAAAASUVORK5CYII=',
-        CLEAR_BACKGROUND_COLOR: '#222',
-        NODE_TITLE_COLOR: '#999',
-        NODE_SELECTED_TITLE_COLOR: '#FFF',
-        NODE_TEXT_SIZE: 14,
-        NODE_TEXT_COLOR: '#AAA',
-        NODE_SUBTEXT_SIZE: 12,
-        NODE_DEFAULT_COLOR: '#333',
-        NODE_DEFAULT_BGCOLOR: '#353535',
-        NODE_DEFAULT_BOXCOLOR: '#666',
-        NODE_DEFAULT_SHAPE: 'box',
-        NODE_BOX_OUTLINE_COLOR: '#FFF',
-        NODE_BYPASS_BGCOLOR: '#FF00FF',
-        DEFAULT_SHADOW_COLOR: 'rgba(0,0,0,0.5)',
-        DEFAULT_GROUP_FONT: 24,
-
-        WIDGET_BGCOLOR: '#222',
-        WIDGET_OUTLINE_COLOR: '#666',
-        WIDGET_TEXT_COLOR: '#DDD',
-        WIDGET_SECONDARY_TEXT_COLOR: '#999',
-
-        LINK_COLOR: '#9A9',
-        EVENT_LINK_COLOR: '#A86',
-        CONNECTING_LINK_COLOR: '#AFA',
-
-        BADGE_FG_COLOR: '#FFF',
-        BADGE_BG_COLOR: '#0F1F0F'
-      },
-      comfy_base: {
-        'fg-color': '#fff',
-        'bg-color': '#202020',
-        'comfy-menu-bg': '#353535',
-        'comfy-input-bg': '#222',
-        'input-text': '#ddd',
-        'descrip-text': '#999',
-        'drag-text': '#ccc',
-        'error-text': '#ff4444',
-        'border-color': '#4e4e4e',
-        'tr-even-bg-color': '#222',
-        'tr-odd-bg-color': '#353535',
-        'content-bg': '#4e4e4e',
-        'content-fg': '#fff',
-        'content-hover-bg': '#222',
-        'content-hover-fg': '#fff'
-      }
-    }
-  },
+  // dark: {
+  //   id: 'dark',
+  //   name: 'Dark (Default)',
+  //   colors: {
+  //     node_slot: {
+  //       CLIP: '#FFD500', // bright yellow
+  //       CLIP_VISION: '#A8DADC', // light blue-gray
+  //       CLIP_VISION_OUTPUT: '#ad7452', // rusty brown-orange
+  //       CONDITIONING: '#FFA931', // vibrant orange-yellow
+  //       CONTROL_NET: '#6EE7B7', // soft mint green
+  //       IMAGE: '#64B5F6', // bright sky blue
+  //       LATENT: '#FF9CF9', // light pink-purple
+  //       MASK: '#81C784', // muted green
+  //       MODEL: '#B39DDB', // light lavender-purple
+  //       STYLE_MODEL: '#C2FFAE', // light green-yellow
+  //       VAE: '#FF6E6E', // bright red
+  //       NOISE: '#B0B0B0', // gray
+  //       GUIDER: '#66FFFF', // cyan
+  //       SAMPLER: '#ECB4B4', // very soft red
+  //       SIGMAS: '#CDFFCD', // soft lime green
+  //       TAESD: '#DCC274' // cheesecake
+  //     },
+  //     litegraph_base: {
+  //       BACKGROUND_IMAGE:
+  //         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQBJREFUeNrs1rEKwjAUhlETUkj3vP9rdmr1Ysammk2w5wdxuLgcMHyptfawuZX4pJSWZTnfnu/lnIe/jNNxHHGNn//HNbbv+4dr6V+11uF527arU7+u63qfa/bnmh8sWLBgwYJlqRf8MEptXPBXJXa37BSl3ixYsGDBMliwFLyCV/DeLIMFCxYsWLBMwSt4Be/NggXLYMGCBUvBK3iNruC9WbBgwYJlsGApeAWv4L1ZBgsWLFiwYJmCV/AK3psFC5bBggULloJX8BpdwXuzYMGCBctgwVLwCl7Be7MMFixYsGDBsu8FH1FaSmExVfAxBa/gvVmwYMGCZbBg/W4vAQYA5tRF9QYlv/QAAAAASUVORK5CYII=',
+  //       CLEAR_BACKGROUND_COLOR: '#222',
+  //       NODE_TITLE_COLOR: '#999',
+  //       NODE_SELECTED_TITLE_COLOR: '#FFF',
+  //       NODE_TEXT_SIZE: 14,
+  //       NODE_TEXT_COLOR: '#AAA',
+  //       NODE_SUBTEXT_SIZE: 12,
+  //       NODE_DEFAULT_COLOR: '#333',
+  //       NODE_DEFAULT_BGCOLOR: '#353535',
+  //       NODE_DEFAULT_BOXCOLOR: '#666',
+  //       NODE_DEFAULT_SHAPE: 'box',
+  //       NODE_BOX_OUTLINE_COLOR: '#FFF',
+  //       NODE_BYPASS_BGCOLOR: '#FF00FF',
+  //       DEFAULT_SHADOW_COLOR: 'rgba(0,0,0,0.5)',
+  //       DEFAULT_GROUP_FONT: 24,
+  //
+  //       WIDGET_BGCOLOR: '#222',
+  //       WIDGET_OUTLINE_COLOR: '#666',
+  //       WIDGET_TEXT_COLOR: '#DDD',
+  //       WIDGET_SECONDARY_TEXT_COLOR: '#999',
+  //
+  //       LINK_COLOR: '#9A9',
+  //       EVENT_LINK_COLOR: '#A86',
+  //       CONNECTING_LINK_COLOR: '#AFA',
+  //
+  //       BADGE_FG_COLOR: '#FFF',
+  //       BADGE_BG_COLOR: '#0F1F0F'
+  //     },
+  //     comfy_base: {
+  //       'fg-color': '#fff',
+  //       'bg-color': '#202020',
+  //       'comfy-menu-bg': '#353535',
+  //       'comfy-input-bg': '#222',
+  //       'input-text': '#ddd',
+  //       'descrip-text': '#999',
+  //       'drag-text': '#ccc',
+  //       'error-text': '#ff4444',
+  //       'border-color': '#4e4e4e',
+  //       'tr-even-bg-color': '#222',
+  //       'tr-odd-bg-color': '#353535',
+  //       'content-bg': '#4e4e4e',
+  //       'content-fg': '#fff',
+  //       'content-hover-bg': '#222',
+  //       'content-hover-fg': '#fff'
+  //     }
+  //   }
+  // },
   light: {
     id: 'light',
     name: 'Light',
@@ -94,7 +94,8 @@ const colorPalettes: ColorPalettes = {
         MASK: '#9CCC65', // light green
         MODEL: '#7E57C2', // deep purple
         STYLE_MODEL: '#D4E157', // lime
-        VAE: '#FF7043' // deep orange
+        VAE: '#FF7043', // deep orange
+        ROUTE_DATA: '#DCC274'
       },
       litegraph_base: {
         BACKGROUND_IMAGE:
@@ -109,13 +110,13 @@ const colorPalettes: ColorPalettes = {
         NODE_DEFAULT_BGCOLOR: '#F5F5F5',
         NODE_DEFAULT_BOXCOLOR: '#CCC',
         NODE_DEFAULT_SHAPE: 'box',
-        NODE_BOX_OUTLINE_COLOR: '#000',
+        NODE_BOX_OUTLINE_COLOR: 'rgba(0,0,0,0.1)',
         NODE_BYPASS_BGCOLOR: '#FF00FF',
         DEFAULT_SHADOW_COLOR: 'rgba(0,0,0,0.1)',
         DEFAULT_GROUP_FONT: 24,
 
-        WIDGET_BGCOLOR: '#D4D4D4',
-        WIDGET_OUTLINE_COLOR: '#999',
+        WIDGET_BGCOLOR: '#F2F4F7',
+        WIDGET_OUTLINE_COLOR: '#F2F4F7',
         WIDGET_TEXT_COLOR: '#222',
         WIDGET_SECONDARY_TEXT_COLOR: '#555',
 
@@ -130,7 +131,7 @@ const colorPalettes: ColorPalettes = {
         'fg-color': '#222',
         'bg-color': '#DDD',
         'comfy-menu-bg': '#F5F5F5',
-        'comfy-input-bg': '#C9C9C9',
+        'comfy-input-bg': '#F2F4F7',
         'input-text': '#222',
         'descrip-text': '#444',
         'drag-text': '#555',
@@ -431,9 +432,9 @@ const colorPalettes: ColorPalettes = {
       }
     }
   },
-  llm: {
-    id: 'llm',
-    name: 'LLM',
+  dark: {
+    id: 'dark',
+    name: 'Dark',
     colors: {
       node_slot: {
         BOOLEAN: '',
@@ -461,7 +462,7 @@ const colorPalettes: ColorPalettes = {
         TIMESTEP_KEYFRAME: '',
         UPSCALE_MODEL: '',
         VAE: '#be616b',
-        ROUTE_DATA: '#be616b'
+        ROUTE_DATA: '#DCC274'
       },
       litegraph_base: {
         BACKGROUND_IMAGE:
@@ -481,7 +482,7 @@ const colorPalettes: ColorPalettes = {
         DEFAULT_SHADOW_COLOR: 'rgba(0,0,0,0.5)',
         DEFAULT_GROUP_FONT: 22,
         WIDGET_BGCOLOR: '#2b2f38',
-        WIDGET_OUTLINE_COLOR: '#6e7581',
+        WIDGET_OUTLINE_COLOR: '#2b2f38',
         WIDGET_TEXT_COLOR: '#DDD',
         WIDGET_SECONDARY_TEXT_COLOR: '#b2b7bd',
         LINK_COLOR: '#9A9',
