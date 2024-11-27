@@ -11,22 +11,23 @@ const TypeSlotEvent: any = {
 }
 
 const _ID: string = 'DynamicNode'
-const _PREFIX: string = 'image'
-const _TYPE: string = 'IMAGE'
 
 app.registerExtension({
   name: 'llm.' + _ID,
   async beforeRegisterNodeDef(nodeType: any, nodeData: any, app: any) {
     // skip the node if it is not the one we want
-    if (nodeData.name !== _ID) {
+    if (!nodeData.name.startsWith('Dynamic ')) {
       return
     }
+
+    const addType = nodeData.name.split(' ')[1]
+    const addPrefix = addType.toLowerCase()
 
     const onNodeCreated = nodeType.prototype.onNodeCreated
     nodeType.prototype.onNodeCreated = async function () {
       const me = onNodeCreated?.apply(this)
       // start with a new dynamic input
-      this.addInput(_PREFIX, _TYPE)
+      this.addInput(addPrefix, addType)
       return me
     }
 
@@ -52,7 +53,7 @@ app.registerExtension({
             const parent_link = fromNode.outputs[link_info.origin_slot]
             if (parent_link) {
               node_slot.type = parent_link.type
-              node_slot.name = `${_PREFIX}_`
+              node_slot.name = `${addPrefix}_`
             }
           }
         } else if (event === TypeSlotEvent.Disconnect) {
@@ -80,8 +81,12 @@ app.registerExtension({
 
         // check that the last slot is a dynamic entry....
         let last = this.inputs[this.inputs.length - 1]
-        if (last === undefined || last.name != _PREFIX || last.type != _TYPE) {
-          this.addInput(_PREFIX, _TYPE)
+        if (
+          last === undefined ||
+          last.name != addPrefix ||
+          last.type != addType
+        ) {
+          this.addInput(addPrefix, addType)
         }
 
         // force the node to resize itself for the new/deleted connections
