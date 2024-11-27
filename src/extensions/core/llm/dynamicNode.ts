@@ -48,6 +48,12 @@ app.registerExtension({
     ) {
       const me = onConnectionsChange?.apply(this, arguments)
 
+      if (
+        !(node_slot.name.startsWith(addPrefix) && node_slot.type === addType)
+      ) {
+        return
+      }
+
       if (slotType === TypeSlot.Input) {
         if (link_info && event === TypeSlotEvent.Connect) {
           // get the parent (left side node) from the link
@@ -71,6 +77,13 @@ app.registerExtension({
         let idx = 0
         let slot_tracker: any = {}
         for (const slot of this.inputs) {
+          if (
+            !(slot.name.startsWith(`${addPrefix}`) && slot.type === addType)
+          ) {
+            idx += 1
+            continue
+          }
+
           if (slot.link === null) {
             this.removeInput(idx)
             continue
