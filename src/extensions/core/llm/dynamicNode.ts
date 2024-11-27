@@ -20,8 +20,7 @@ app.registerExtension({
       return
     }
 
-    const addType = nodeData.name.split(' ')[1]
-    const addPrefix = addType.toLowerCase()
+    const [, addType, addPrefix] = nodeData.name.split(' ')
 
     const onNodeCreated = nodeType.prototype.onNodeCreated
     nodeType.prototype.onNodeCreated = async function () {
