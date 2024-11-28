@@ -112,6 +112,7 @@ export default {
   },
   graphCanvasMenu: {
     zoomIn: 'Увеличить',
+    organizeNodes: 'Организовать узлы',
     zoomOut: 'Уменьшить',
     resetView: 'Сбросить вид',
     fitView: 'Подгонять под выделенные',

@@ -112,6 +112,7 @@ export default {
   },
   graphCanvasMenu: {
     zoomIn: '放大',
+    organizeNodes: '整理节点',
     zoomOut: '缩小',
     resetView: '重置视图',
     fitView: '适应视图',

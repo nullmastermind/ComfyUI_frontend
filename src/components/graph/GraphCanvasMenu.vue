@@ -32,6 +32,12 @@
     />
     <Button
       severity="secondary"
+      icon="pi pi-sitemap"
+      v-tooltip.left="t('graphCanvasMenu.organizeNodes') + ' (Ctrl+O)'"
+      @click="() => commandStore.execute('llm.OrganizeNodes')"
+    />
+    <Button
+      severity="secondary"
       v-tooltip.left="
         t(
           'graphCanvasMenu.' +

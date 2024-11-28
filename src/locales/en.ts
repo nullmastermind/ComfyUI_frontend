@@ -206,6 +206,7 @@ export default {
   },
   graphCanvasMenu: {
     zoomIn: 'Zoom In',
+    organizeNodes: 'Organize nodes',
     zoomOut: 'Zoom Out',
     resetView: 'Reset View',
     fitView: 'Fit View',
