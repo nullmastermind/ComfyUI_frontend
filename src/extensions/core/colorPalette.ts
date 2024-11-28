@@ -41,7 +41,7 @@ const colorPalettes: ColorPalettes = {
         NODE_DEFAULT_SHAPE: 'box',
         NODE_BOX_OUTLINE_COLOR: '#296CFC',
         NODE_BYPASS_BGCOLOR: '#FF00FF',
-        DEFAULT_SHADOW_COLOR: 'rgba(0,0,0,0.2)',
+        DEFAULT_SHADOW_COLOR: 'rgba(0,0,0,0.1)',
         DEFAULT_GROUP_FONT: 24,
 
         WIDGET_BGCOLOR: '#F2F4F7',
