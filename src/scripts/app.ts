@@ -1584,6 +1584,17 @@ export class ComfyApp {
 
       node.bgcolor = adjustColor(bgColor, adjustments)
 
+      const origStroke = arguments[1].stroke
+      arguments[1].stroke = function () {
+        // Disable slot outline (output)
+        if (this.strokeStyle !== '#000000' || this.lineWidth !== 1) {
+          origStroke.apply(this, arguments)
+        } else {
+          // this.strokeStyle = '#DFDFDF'
+          // origStroke.apply(this, arguments)
+        }
+      }
+
       const res = origDrawNode.apply(this, arguments)
 
       this.editor_alpha = editor_alpha
