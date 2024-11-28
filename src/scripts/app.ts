@@ -1449,59 +1449,57 @@ export class ComfyApp {
       const nodeErrors = self.lastNodeErrors?.[node.id]
 
       let color = null
-      let lineWidth = 1
       if (node.id === +self.runningNodeId) {
         color = '#0f0'
       } else if (self.dragOverNode && node.id === self.dragOverNode.id) {
         color = 'dodgerblue'
       } else if (nodeErrors?.errors) {
         color = 'red'
-        lineWidth = 2
       } else if (
         self.lastExecutionError &&
         +self.lastExecutionError.node_id === node.id
       ) {
         color = '#f0f'
-        lineWidth = 2
       }
 
       if (color) {
+        const offset = 0
         const shape =
           node._shape || node.constructor.shape || LiteGraph.ROUND_SHAPE
-        ctx.lineWidth = lineWidth
+        ctx.lineWidth = 3
         ctx.globalAlpha = 0.8
         ctx.beginPath()
         if (shape == LiteGraph.BOX_SHAPE)
           ctx.rect(
-            -6,
-            -6 - LiteGraph.NODE_TITLE_HEIGHT,
-            12 + size[0] + 1,
-            12 + size[1] + LiteGraph.NODE_TITLE_HEIGHT
+            -offset,
+            -offset - LiteGraph.NODE_TITLE_HEIGHT,
+            offset * 2 + size[0] + 1,
+            offset * 2 + size[1] + LiteGraph.NODE_TITLE_HEIGHT
           )
         else if (
           shape == LiteGraph.ROUND_SHAPE ||
           (shape == LiteGraph.CARD_SHAPE && node.flags.collapsed)
         )
           ctx.roundRect(
-            -6,
-            -6 - LiteGraph.NODE_TITLE_HEIGHT,
-            12 + size[0] + 1,
-            12 + size[1] + LiteGraph.NODE_TITLE_HEIGHT,
-            this.round_radius * 2
+            -offset, // Changed from -6
+            -offset - LiteGraph.NODE_TITLE_HEIGHT,
+            offset * 2 + size[0] + 1,
+            offset * 2 + size[1] + LiteGraph.NODE_TITLE_HEIGHT,
+            this.round_radius * 1.5
           )
         else if (shape == LiteGraph.CARD_SHAPE)
           ctx.roundRect(
-            -6,
-            -6 - LiteGraph.NODE_TITLE_HEIGHT,
-            12 + size[0] + 1,
-            12 + size[1] + LiteGraph.NODE_TITLE_HEIGHT,
+            -offset,
+            -offset - LiteGraph.NODE_TITLE_HEIGHT,
+            offset * 2 + size[0] + 1,
+            offset * 2 + size[1] + LiteGraph.NODE_TITLE_HEIGHT,
             [this.round_radius * 2, this.round_radius * 2, 2, 2]
           )
         else if (shape == LiteGraph.CIRCLE_SHAPE)
           ctx.arc(
             size[0] * 0.5,
             size[1] * 0.5,
-            size[0] * 0.5 + 6,
+            size[0] * 0.5 + offset,
             0,
             Math.PI * 2
           )
