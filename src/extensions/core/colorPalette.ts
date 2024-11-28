@@ -59,7 +59,7 @@ const colorPalettes: ColorPalettes = {
       comfy_base: {
         'fg-color': '#222',
         'bg-color': '#DDD',
-        'comfy-menu-bg': '#F5F5F5',
+        'comfy-menu-bg': '#fff',
         'comfy-input-bg': '#F2F4F7',
         'input-text': '#222',
         'descrip-text': '#444',
