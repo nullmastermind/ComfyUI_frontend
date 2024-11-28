@@ -1509,7 +1509,7 @@ export class ComfyApp {
         ctx.globalAlpha = 1
       }
 
-      if (self.progress && node.id === +self.runningNodeId) {
+      if (self.progress && node.id === +useExecutionStore().executingNodeId) {
         ctx.fillStyle = 'green'
         ctx.fillRect(
           0,
