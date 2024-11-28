@@ -13,7 +13,7 @@
       class="zoom-value"
       severity="secondary"
       v-tooltip.left="t('graphCanvasMenu.resetView')"
-      @click="() => commandStore.execute('Comfy.Canvas.FitView')"
+      @click="resetZoom"
     >
       {{ zoomText }}
     </Button>
@@ -58,7 +58,7 @@ import { useCanvasStore } from '@/stores/graphStore'
 import { useSettingStore } from '@/stores/settingStore'
 import { useI18n } from 'vue-i18n'
 import { LiteGraph } from '@comfyorg/litegraph'
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const { t } = useI18n()
 const commandStore = useCommandStore()
@@ -90,6 +90,14 @@ const zoomText = computed(() => `${Math.round(currentZoom.value)}%`)
 const updateZoom = () => {
   if (canvasStore.canvas) {
     currentZoom.value = canvasStore.canvas.ds.scale * 100
+  }
+}
+
+const resetZoom = () => {
+  if (canvasStore.canvas) {
+    canvasStore.canvas.ds.scale = 1
+    canvasStore.canvas.setDirty(true, true)
+    updateZoom()
   }
 }
 
