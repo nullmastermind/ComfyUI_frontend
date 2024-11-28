@@ -5,19 +5,19 @@ import {
   ComfyWidgets,
   initWidgets
 } from './widgets'
-import { ComfyUI, $el } from './ui'
+import { $el, ComfyUI } from './ui'
 import { api } from './api'
 import { defaultGraph } from './defaultGraph'
 import {
+  getFlacMetadata,
+  getLatentMetadata,
   getPngMetadata,
   getWebpMetadata,
-  getFlacMetadata,
-  importA1111,
-  getLatentMetadata
+  importA1111
 } from './pnginfo'
-import { createImageHost, calculateImageGrid } from './ui/imagePreview'
+import { calculateImageGrid, createImageHost } from './ui/imagePreview'
 import { DraggableList } from './ui/draggableList'
-import { applyTextReplacements, addStylesheet } from './utils'
+import { addStylesheet, applyTextReplacements, getStorageValue } from './utils'
 import type { ComfyExtension, MissingNodeType } from '@/types/comfy'
 import {
   type ComfyWorkflowJSON,
@@ -27,14 +27,15 @@ import {
 import { ComfyNodeDef, StatusWsMessageStatus } from '@/types/apiTypes'
 import { adjustColor, ColorAdjustOptions } from '@/utils/colorUtil'
 import { ComfyAppMenu } from './ui/menu/index'
-import { getStorageValue } from './utils'
 import { ComfyWorkflow } from '@/stores/workflowStore'
 import {
-  LGraphGroup,
-  LGraphCanvas,
+  INodeInputSlot,
+  IWidget,
   LGraph,
+  LGraphCanvas,
   LGraphNode,
-  LiteGraph
+  LiteGraph,
+  Vector2
 } from '@comfyorg/litegraph'
 import { StorageLocation } from '@/types/settingTypes'
 import { ExtensionManager } from '@/types/extensionTypes'
@@ -43,7 +44,6 @@ import {
   SYSTEM_NODE_DEFS,
   useNodeDefStore
 } from '@/stores/nodeDefStore'
-import { INodeInputSlot, Vector2 } from '@comfyorg/litegraph'
 import _ from 'lodash'
 import {
   showExecutionErrorDialog,
@@ -56,7 +56,6 @@ import { useModelStore } from '@/stores/modelStore'
 import type { ToastMessageOptions } from 'primevue/toast'
 import { useWorkspaceStore } from '@/stores/workspaceStore'
 import { useExecutionStore } from '@/stores/executionStore'
-import { IWidget } from '@comfyorg/litegraph'
 import { useExtensionStore } from '@/stores/extensionStore'
 import { KeyComboImpl, useKeybindingStore } from '@/stores/keybindingStore'
 import { useCommandStore } from '@/stores/commandStore'
@@ -1366,6 +1365,7 @@ export class ComfyApp {
   #addDrawNodeHandler() {
     const origDrawNodeShape = LGraphCanvas.prototype.drawNodeShape
     const self = this
+    const tmp_area = new Float32Array(4)
     LGraphCanvas.prototype.drawNodeShape = function (
       node,
       ctx,
@@ -1374,7 +1374,77 @@ export class ComfyApp {
       bgcolor,
       selected
     ) {
+      arguments[5] = false
       const res = origDrawNodeShape.apply(this, arguments)
+
+      // draw selected
+      const mouse_over = false
+      const title_height = LiteGraph.NODE_TITLE_HEIGHT
+
+      // Render node area depending on shape
+      const shape =
+        node._shape || node.constructor.shape || LiteGraph.ROUND_SHAPE
+      const title_mode = node.constructor.title_mode
+
+      const render_title =
+        !(
+          title_mode === LiteGraph.TRANSPARENT_TITLE ||
+          title_mode === LiteGraph.NO_TITLE
+        ) &&
+        (title_mode !== LiteGraph.AUTOHIDE_TITLE || mouse_over)
+
+      const area = tmp_area
+      area[0] = 0 // x
+      area[1] = render_title ? -title_height : 0 // y
+      area[2] = size[0] + 1 // w
+      area[3] = render_title ? size[1] + title_height : size[1] // h
+
+      if (selected) {
+        const offset = 0
+
+        ctx.lineWidth = 3
+        ctx.globalAlpha = 1
+        ctx.beginPath()
+        if (shape == LiteGraph.BOX_SHAPE) {
+          ctx.rect(
+            -offset + area[0],
+            -offset + area[1],
+            offset * 2 + area[2],
+            offset * 2 + area[3]
+          )
+        } else if (
+          shape == LiteGraph.ROUND_SHAPE ||
+          (shape == LiteGraph.CARD_SHAPE && node.flags.collapsed)
+        ) {
+          ctx.roundRect(
+            -offset + area[0],
+            -offset + area[1],
+            offset * 2 + area[2],
+            offset * 2 + area[3],
+            [this.round_radius * 1.5]
+          )
+        } else if (shape == LiteGraph.CARD_SHAPE) {
+          ctx.roundRect(
+            -offset + area[0],
+            -offset + area[1],
+            offset * 2 + area[2],
+            offset * 2 + area[3],
+            [this.round_radius * 2, 2, this.round_radius * 2, 2]
+          )
+        } else if (shape == LiteGraph.CIRCLE_SHAPE) {
+          ctx.arc(
+            size[0] * 0.5,
+            size[1] * 0.5,
+            size[0] * 0.5 + offset,
+            0,
+            Math.PI * 2
+          )
+        }
+        ctx.strokeStyle = LiteGraph.NODE_BOX_OUTLINE_COLOR
+        ctx.stroke()
+        ctx.strokeStyle = fgcolor
+        ctx.globalAlpha = 1
+      }
 
       const nodeErrors = self.lastNodeErrors?.[node.id]
 
