@@ -33,22 +33,22 @@ import LiteGraphCanvasSplitterOverlay from '@/components/LiteGraphCanvasSplitter
 import NodeSearchboxPopover from '@/components/searchbox/NodeSearchBoxPopover.vue'
 import NodeTooltip from '@/components/graph/NodeTooltip.vue'
 import NodeBadge from '@/components/graph/NodeBadge.vue'
-import { ref, computed, onMounted, watchEffect } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { app as comfyApp } from '@/scripts/app'
 import { useSettingStore } from '@/stores/settingStore'
 import { ComfyNodeDefImpl, useNodeDefStore } from '@/stores/nodeDefStore'
 import { useWorkspaceStore } from '@/stores/workspaceStore'
 import {
-  LiteGraph,
-  LGraph,
-  LLink,
-  LGraphNode,
-  LGraphGroup,
-  DragAndScale,
-  LGraphCanvas,
+  CanvasPointer,
   ContextMenu,
+  DragAndScale,
+  LGraph,
   LGraphBadge,
-  CanvasPointer
+  LGraphCanvas,
+  LGraphGroup,
+  LGraphNode,
+  LiteGraph,
+  LLink
 } from '@comfyorg/litegraph'
 import type { RenderedTreeExplorerNode } from '@/types/treeExplorerTypes'
 import { useCanvasStore } from '@/stores/graphStore'
@@ -141,6 +141,8 @@ watchEffect(() => {
   const linkRenderMode = settingStore.get('Comfy.LinkRenderMode')
   if (canvasStore.canvas) {
     canvasStore.canvas.links_render_mode = linkRenderMode
+    canvasStore.canvas.render_connections_border = false
+    canvasStore.canvas.render_connections_shadows = false
     canvasStore.canvas.setDirty(/* fg */ false, /* bg */ true)
   }
 })
