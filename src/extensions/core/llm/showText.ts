@@ -28,7 +28,6 @@ app.registerExtension({
             app
           ).widget as any
           textWidget.inputEl.readOnly = true
-          textWidget.inputEl.style.opacity = 0.6
           textWidget.value = textLine
         }
 
