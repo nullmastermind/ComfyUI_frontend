@@ -8,12 +8,14 @@
       v-tooltip.left="t('graphCanvasMenu.zoomIn')"
       @mousedown="repeat('Comfy.Canvas.ZoomIn')"
       @mouseup="stopRepeat"
+      size="small"
     />
     <Button
       class="zoom-value"
       severity="secondary"
       v-tooltip.left="t('graphCanvasMenu.resetView')"
       @click="resetZoom"
+      size="small"
     >
       {{ zoomText }}
     </Button>
@@ -23,18 +25,21 @@
       v-tooltip.left="t('graphCanvasMenu.zoomOut')"
       @mousedown="repeat('Comfy.Canvas.ZoomOut')"
       @mouseup="stopRepeat"
+      size="small"
     />
     <Button
       severity="secondary"
       icon="pi pi-expand"
       v-tooltip.left="t('graphCanvasMenu.fitView')"
       @click="() => commandStore.execute('Comfy.Canvas.FitView')"
+      size="small"
     />
     <Button
       severity="secondary"
       icon="pi pi-sitemap"
       v-tooltip.left="t('graphCanvasMenu.organizeNodes') + ' (Ctrl+O)'"
       @click="() => commandStore.execute('llm.OrganizeNodes')"
+      size="small"
     />
     <Button
       severity="secondary"
@@ -45,6 +50,7 @@
         ) + ' (Space)'
       "
       @click="() => commandStore.execute('Comfy.Canvas.ToggleLock')"
+      size="small"
     >
       <template #icon>
         <i-material-symbols:pan-tool-outline
@@ -132,7 +138,7 @@ onUnmounted(() => {
   border-radius: var(--p-button-border-radius);
   overflow: hidden;
   border: 1px solid var(--p-panel-border-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   left: calc(50% - 100px);
 }
 
