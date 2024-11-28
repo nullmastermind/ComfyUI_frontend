@@ -143,7 +143,7 @@ watchEffect(() => {
     canvasStore.canvas.links_render_mode = linkRenderMode
     canvasStore.canvas.render_connections_border = false
     canvasStore.canvas.render_connections_shadows = false
-    canvasStore.canvas.connections_width = 1
+    canvasStore.canvas.connections_width = 1.25
     canvasStore.canvas.setDirty(/* fg */ false, /* bg */ true)
   }
 })
