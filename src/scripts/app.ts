@@ -1449,7 +1449,7 @@ export class ComfyApp {
       const nodeErrors = self.lastNodeErrors?.[node.id]
 
       let color = null
-      if (node.id === +self.runningNodeId) {
+      if (node.id === +useExecutionStore().executingNodeId) {
         color = '#0f0'
       } else if (self.dragOverNode && node.id === self.dragOverNode.id) {
         color = 'dodgerblue'
@@ -1613,7 +1613,7 @@ export class ComfyApp {
     api.addEventListener('executing', ({ detail }) => {
       this.progress = null
       this.graph.setDirtyCanvas(true, false)
-      delete this.nodePreviewImages[this.runningNodeId]
+      delete this.nodePreviewImages[useExecutionStore().executingNodeId]
     })
 
     api.addEventListener('executed', ({ detail }) => {
@@ -1650,7 +1650,7 @@ export class ComfyApp {
     })
 
     api.addEventListener('b_preview', ({ detail }) => {
-      const id = this.runningNodeId
+      const id = useExecutionStore().executingNodeId
       if (id == null) return
 
       const blob = detail
