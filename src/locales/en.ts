@@ -3,6 +3,16 @@ export default {
     title: 'Welcome to ComfyUI',
     getStarted: 'Get Started'
   },
+  notSupported: {
+    title: 'Your device is not supported',
+    message: 'Only following devices are supported:',
+    learnMore: 'Learn More',
+    reportIssue: 'Report Issue',
+    supportedDevices: {
+      macos: 'MacOS (M1 or later)',
+      windows: 'Windows (Nvidia GPU with CUDA support)'
+    }
+  },
   install: {
     installLocation: 'Install Location',
     migration: 'Migration',
@@ -62,7 +72,7 @@ export default {
       'python-setup': 'Setting up Python Environment...',
       'starting-server': 'Starting ComfyUI server...',
       ready: 'Finishing...',
-      error: 'Unable to start ComfyUI'
+      error: 'Unable to start ComfyUI Desktop'
     }
   },
   serverConfig: {
@@ -71,6 +81,8 @@ export default {
     revertChanges: 'Revert Changes',
     restart: 'Restart'
   },
+  empty: 'Empty',
+  noWorkflowsFound: 'No workflows found.',
   comingSoon: 'Coming Soon',
   firstTimeUIMessage:
     'This is the first time you use the new UI. Choose "Menu > Use New Menu > Disabled" to restore the old UI.',
