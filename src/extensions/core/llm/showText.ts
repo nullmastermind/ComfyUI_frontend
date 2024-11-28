@@ -4,14 +4,13 @@ import { app } from '@/scripts/app'
 app.registerExtension({
   name: 'llm.ShowText',
   async beforeRegisterNodeDef(nodeType: any, nodeData: any, app: any) {
-    if (nodeData.name === 'Output Text') {
+    if (nodeData.name.endsWith('OutputText')) {
       function populateTextWidgets(this: any, textContent: string | string[]) {
-        // Clear existing widgets except the first one
         if (this.widgets) {
-          for (let i = 1; i < this.widgets.length; i++) {
+          for (let i = this.widgets.length - 1; i >= 0; i--) {
             this.widgets[i].onRemove?.()
           }
-          this.widgets.length = 1
+          this.widgets.length = 0
         }
 
         // Convert input to array and remove empty first element if exists
