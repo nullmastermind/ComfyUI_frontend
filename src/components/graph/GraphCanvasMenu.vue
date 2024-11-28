@@ -1,6 +1,6 @@
 <template>
   <ButtonGroup
-    class="p-buttongroup-vertical absolute bottom-[10px] right-[10px] z-[1000] pointer-events-auto"
+    class="p-buttongroup-horizontal fixed bottom-[10px] z-[1000] pointer-events-auto"
   >
     <Button
       severity="secondary"
@@ -9,6 +9,14 @@
       @mousedown="repeat('Comfy.Canvas.ZoomIn')"
       @mouseup="stopRepeat"
     />
+    <Button
+      class="zoom-value"
+      severity="secondary"
+      v-tooltip.left="t('graphCanvasMenu.resetView')"
+      @click="() => commandStore.execute('Comfy.Canvas.FitView')"
+    >
+      {{ zoomText }}
+    </Button>
     <Button
       severity="secondary"
       icon="pi pi-minus"
@@ -39,13 +47,6 @@
         <i-simple-line-icons:cursor v-else />
       </template>
     </Button>
-    <Button
-      severity="secondary"
-      :icon="linkHidden ? 'pi pi-eye-slash' : 'pi pi-eye'"
-      v-tooltip.left="t('graphCanvasMenu.toggleLinkVisibility')"
-      @click="() => commandStore.execute('Comfy.Canvas.ToggleLinkVisibility')"
-      data-testid="toggle-link-visibility-button"
-    />
   </ButtonGroup>
 </template>
 
@@ -57,7 +58,7 @@ import { useCanvasStore } from '@/stores/graphStore'
 import { useSettingStore } from '@/stores/settingStore'
 import { useI18n } from 'vue-i18n'
 import { LiteGraph } from '@comfyorg/litegraph'
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 
 const { t } = useI18n()
 const commandStore = useCommandStore()
@@ -81,19 +82,53 @@ const stopRepeat = () => {
     interval = null
   }
 }
+
+const currentZoom = ref(100)
+
+const zoomText = computed(() => `${Math.round(currentZoom.value)}%`)
+
+const updateZoom = () => {
+  if (canvasStore.canvas) {
+    currentZoom.value = canvasStore.canvas.ds.scale * 100
+  }
+}
+
+onMounted(() => {
+  if (canvasStore.canvas) {
+    canvasStore.canvas.onDrawBackground = function () {
+      updateZoom()
+      if (this._old_onDrawBackground) {
+        this._old_onDrawBackground.call(this)
+      }
+    }
+  }
+})
+
+onUnmounted(() => {
+  if (canvasStore.canvas) {
+    canvasStore.canvas.onDrawBackground = null
+  }
+})
 </script>
 
 <style scoped>
-.p-buttongroup-vertical {
+.p-buttongroup-horizontal {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   border-radius: var(--p-button-border-radius);
   overflow: hidden;
   border: 1px solid var(--p-panel-border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  left: calc(50% - 100px);
 }
 
-.p-buttongroup-vertical .p-button {
+.p-buttongroup-horizontal .p-button {
   margin: 0;
   border-radius: 0;
+}
+
+.zoom-value {
+  width: 40px;
+  font-size: small;
 }
 </style>
