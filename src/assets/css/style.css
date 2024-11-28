@@ -637,6 +637,23 @@ dialog::backdrop {
   padding-left: 0.5rem;
 }
 
+.litegraph .litemenu-entry.separator {
+  border-top: 0 !important;
+  border-bottom: 1px solid #dddddd;
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.litegraph
+  .litecontextmenu.litemenubar-panel
+  > div.litemenu-entry.submenu.separator {
+  display: none;
+}
+
+.dark-theme .litegraph .litemenu-entry.separator {
+  border-bottom: 1px solid #555;
+}
+
 .litegraph.litecontextmenu input {
   background-color: var(--comfy-input-bg) !important;
   color: var(--input-text) !important;
