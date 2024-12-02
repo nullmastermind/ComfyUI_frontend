@@ -595,11 +595,11 @@ dialog::backdrop {
 .litegraph .litemenu-entry.has_submenu {
   position: relative;
   padding-right: 20px;
-  border-right-color: #dddddd !important;
+  border-right-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 .dark-theme .litegraph .litemenu-entry.has_submenu {
-  border-right-color: #555 !important;
+  border-right-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .litegraph.litecontextmenu {
