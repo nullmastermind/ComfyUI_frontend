@@ -1,0 +1,470 @@
+{
+  "welcome": {
+    "title": "Chào mừng đến với ComfyUI",
+    "getStarted": "Bắt đầu"
+  },
+  "userSelect": {
+    "newUser": "Người dùng mới",
+    "enterUsername": "Nhập tên người dùng",
+    "existingUser": "Người dùng hiện tại",
+    "selectUser": "Chọn người dùng",
+    "next": "Tiếp theo"
+  },
+  "notSupported": {
+    "title": "Thiết bị của bạn không được hỗ trợ",
+    "message": "Chỉ các thiết bị sau được hỗ trợ:",
+    "learnMore": "Tìm hiểu thêm",
+    "reportIssue": "Báo cáo sự cố",
+    "supportedDevices": {
+      "macos": "MacOS (M1 hoặc mới hơn)",
+      "windows": "Windows (GPU Nvidia với hỗ trợ CUDA)"
+    }
+  },
+  "downloadGit": {
+    "title": "Tải xuống git",
+    "message": "Không thể tìm thấy git. Một bản sao làm việc của git là cần thiết cho hoạt động bình thường.",
+    "instructions": "Vui lòng tải xuống và cài đặt phiên bản mới nhất cho hệ điều hành của bạn. Nút Tải xuống git bên dưới sẽ mở trang tải xuống git-scm.com.",
+    "warning": "Nếu bạn chắc chắn rằng bạn không cần cài đặt git, hoặc có sự nhầm lẫn, bạn có thể nhấp Bỏ qua để bỏ qua kiểm tra này. Hiện tại không hỗ trợ chạy ComfyUI mà không có bản sao làm việc của git.",
+    "gitWebsite": "Tải xuống git",
+    "skip": "Bỏ qua"
+  },
+  "install": {
+    "installLocation": "Vị trí cài đặt",
+    "migration": "Di chuyển",
+    "desktopSettings": "Cài đặt máy tính để bàn",
+    "chooseInstallationLocation": "Chọn vị trí cài đặt",
+    "systemLocations": "Vị trí hệ thống",
+    "failedToSelectDirectory": "Không thể chọn thư mục",
+    "pathValidationFailed": "Không thể xác thực đường dẫn",
+    "installLocationDescription": "Chọn thư mục cho dữ liệu người dùng của ComfyUI. Một môi trường python sẽ được cài đặt vào vị trí đã chọn. Vui lòng đảm bảo đĩa đã chọn có đủ dung lượng (~15GB) còn lại.",
+    "installLocationTooltip": "Thư mục dữ liệu người dùng của ComfyUI. Lưu trữ:\n- Môi trường Python\n- Mô hình\n- Các nút tùy chỉnh\n",
+    "appDataLocationTooltip": "Thư mục dữ liệu ứng dụng của ComfyUI. Lưu trữ:\n- Nhật ký\n- Cấu hình máy chủ",
+    "appPathLocationTooltip": "Thư mục tài sản ứng dụng của ComfyUI. Lưu trữ mã và tài sản của ComfyUI",
+    "migrateFromExistingInstallation": "Di chuyển từ cài đặt hiện có",
+    "migrationSourcePathDescription": "Nếu bạn có một cài đặt ComfyUI hiện có, chúng tôi có thể sao chép/liên kết các tệp người dùng và mô hình hiện có của bạn vào cài đặt mới.",
+    "selectItemsToMigrate": "Chọn các mục để di chuyển",
+    "migrationOptional": "Di chuyển là tùy chọn. Nếu bạn không có cài đặt hiện có, bạn có thể bỏ qua bước này.",
+    "desktopAppSettings": "Cài đặt ứng dụng máy tính để bàn",
+    "desktopAppSettingsDescription": "Cấu hình cách ComfyUI hoạt động trên máy tính để bàn của bạn. Bạn có thể thay đổi các cài đặt này sau.",
+    "settings": {
+      "autoUpdate": "Cập nhật tự động",
+      "allowMetrics": "Báo cáo sự cố",
+      "autoUpdateDescription": "Tự động tải xuống và cài đặt các bản cập nhật khi chúng có sẵn. Bạn sẽ luôn được thông báo trước khi các bản cập nhật được cài đặt.",
+      "allowMetricsDescription": "Giúp cải thiện ComfyUI bằng cách gửi các báo cáo sự cố ẩn danh. Không có thông tin cá nhân hoặc nội dung quy trình làm việc nào được thu thập. Bạn có thể tắt tính năng này bất cứ lúc nào trong menu cài đặt.",
+      "learnMoreAboutData": "Tìm hiểu thêm về việc thu thập dữ liệu",
+      "dataCollectionDialog": {
+        "title": "Về việc thu thập dữ liệu",
+        "whatWeCollect": "Những gì chúng tôi thu thập:",
+        "whatWeDoNotCollect": "Những gì chúng tôi không thu thập:",
+        "errorReports": "Thông báo lỗi và dấu vết ngăn xếp",
+        "systemInfo": "Thông tin phần cứng, loại hệ điều hành và phiên bản ứng dụng",
+        "personalInformation": "Thông tin cá nhân",
+        "workflowContent": "Nội dung quy trình làm việc",
+        "fileSystemInformation": "Thông tin hệ thống tệp",
+        "workflowContents": "Nội dung quy trình làm việc",
+        "customNodeConfigurations": "Cấu hình nút tùy chỉnh"
+      }
+    },
+    "customNodes": "Nút tùy chỉnh",
+    "customNodesDescription": "Tham chiếu các tệp nút tùy chỉnh từ các cài đặt ComfyUI hiện có và cài đặt các phụ thuộc của chúng."
+  },
+  "serverStart": {
+    "reinstall": "Cài đặt lại",
+    "reportIssue": "Báo cáo sự cố",
+    "openLogs": "Mở nhật ký",
+    "process": {
+      "ready": "Hoàn tất...",
+      "error": "Không thể khởi động ComfyUI Desktop"
+    }
+  },
+  "serverConfig": {
+    "modifiedConfigs": "Bạn đã sửa đổi các cấu hình máy chủ sau. Khởi động lại để áp dụng các thay đổi.",
+    "revertChanges": "Hoàn nguyên thay đổi",
+    "restart": "Khởi động lại"
+  },
+  "currentUser": "Người dùng hiện tại",
+  "empty": "Trống",
+  "noWorkflowsFound": "Không tìm thấy quy trình làm việc.",
+  "comingSoon": "Sắp ra mắt",
+  "firstTimeUIMessage": "Đây là lần đầu tiên bạn sử dụng giao diện mới. Chọn \"Menu > Sử dụng Menu Mới > Tắt\" để khôi phục giao diện cũ.",
+  "download": "Tải xuống",
+  "loadAllFolders": "Tải tất cả thư mục",
+  "refresh": "Làm mới",
+  "terminal": "Terminal",
+  "logs": "Nhật ký",
+  "videoFailedToLoad": "Không thể tải video",
+  "extensionName": "Tên tiện ích mở rộng",
+  "reloadToApplyChanges": "Tải lại để áp dụng thay đổi",
+  "insert": "Chèn",
+  "systemInfo": "Thông tin hệ thống",
+  "devices": "Thiết bị",
+  "about": "Giới thiệu",
+  "add": "Thêm",
+  "confirm": "Xác nhận",
+  "reset": "Đặt lại",
+  "resetKeybindingsTooltip": "Đặt lại phím tắt về mặc định",
+  "customizeFolder": "Tùy chỉnh thư mục",
+  "icon": "Biểu tượng",
+  "color": "Màu sắc",
+  "bookmark": "Đánh dấu",
+  "folder": "Thư mục",
+  "star": "Ngôi sao",
+  "heart": "Trái tim",
+  "file": "Tệp",
+  "inbox": "Hộp thư đến",
+  "box": "Hộp",
+  "briefcase": "Cặp tài liệu",
+  "error": "Lỗi",
+  "loading": "Đang tải",
+  "findIssues": "Tìm sự cố",
+  "reportIssue": "Gửi báo cáo",
+  "reportIssueTooltip": "Gửi báo cáo lỗi đến Comfy Org",
+  "reportSent": "Báo cáo đã được gửi",
+  "copyToClipboard": "Sao chép vào clipboard",
+  "openNewIssue": "Mở sự cố mới",
+  "showReport": "Hiển thị báo cáo",
+  "imageFailedToLoad": "Không thể tải hình ảnh",
+  "reconnecting": "Đang kết nối lại",
+  "reconnected": "Đã kết nối lại",
+  "delete": "Xóa",
+  "rename": "Đổi tên",
+  "customize": "Tùy chỉnh",
+  "experimental": "BETA",
+  "deprecated": "KHÔNG DÙNG NỮA",
+  "loadWorkflow": "Tải quy trình làm việc",
+  "goToNode": "Đi đến nút",
+  "settings": "Cài đặt",
+  "settingsDialog": {
+    "Comfy_ConfirmClear": {
+      "name": "Yêu cầu xác nhận khi xóa quy trình làm việc"
+    },
+    "Comfy_DevMode": {
+      "name": "Bật tùy chọn chế độ phát triển (lưu API, v.v.)"
+    },
+    "Comfy_DisableFloatRounding": {
+      "name": "Tắt làm tròn widget float mặc định.",
+      "tooltip": "(yêu cầu tải lại trang) Không thể tắt làm tròn khi làm tròn được đặt bởi nút trong backend."
+    },
+    "Comfy_DisableSliders": {
+      "name": "Tắt thanh trượt widget nút"
+    },
+    "Comfy_DOMClippingEnabled": {
+      "name": "Bật cắt phần tử DOM (bật có thể giảm hiệu suất)"
+    },
+    "Comfy_EnableTooltips": {
+      "name": "Bật chú giải công cụ"
+    },
+    "Comfy_EnableWorkflowViewRestore": {
+      "name": "Lưu và khôi phục vị trí canvas và mức thu phóng trong quy trình làm việc"
+    },
+    "Comfy_Extension_Disabled": {
+      "name": "Tên tiện ích mở rộng bị tắt"
+    },
+    "Comfy_FloatRoundingPrecision": {
+      "name": "Số chữ số thập phân làm tròn widget float [0 = tự động].",
+      "tooltip": "(yêu cầu tải lại trang)"
+    },
+    "Comfy_Graph_CanvasInfo": {
+      "name": "Hiển thị thông tin canvas ở góc dưới bên trái (fps, v.v.)"
+    },
+    "Comfy_Graph_CanvasMenu": {
+      "name": "Hiển thị menu canvas đồ thị"
+    },
+    "Comfy_Graph_CtrlShiftZoom": {
+      "name": "Bật phím tắt thu phóng nhanh (Ctrl + Shift + Kéo)"
+    },
+    "Comfy_Graph_LinkMarkers": {
+      "name": "Điểm đánh dấu liên kết giữa"
+    },
+    "Comfy_Graph_ZoomSpeed": {
+      "name": "Tốc độ thu phóng canvas"
+    },
+    "Comfy_Group_DoubleClickTitleToEdit": {
+      "name": "Nhấp đúp vào tiêu đề nhóm để chỉnh sửa"
+    },
+    "Comfy_GroupSelectedNodes_Padding": {
+      "name": "Đệm các nút đã chọn trong nhóm"
+    },
+    "Comfy_Keybinding_NewBindings": {
+      "name": "Phím tắt do người dùng đặt"
+    },
+    "Comfy_Keybinding_UnsetBindings": {
+      "name": "Phím tắt chưa được đặt bởi người dùng"
+    },
+    "Comfy_LinkRelease_Action": {
+      "name": "Hành động khi thả liên kết (Không có phím bổ trợ)"
+    },
+    "Comfy_LinkRelease_ActionShift": {
+      "name": "Hành động khi thả liên kết (Shift)"
+    },
+    "Comfy_LinkRenderMode": {
+      "name": "Chế độ hiển thị liên kết"
+    },
+    "Comfy_Locale": {
+      "name": "Ngôn ngữ"
+    },
+    "Comfy_ModelLibrary_AutoLoadAll": {
+      "name": "Tự động tải tất cả thư mục mô hình",
+      "tooltip": "Nếu đúng, tất cả các thư mục sẽ được tải ngay khi bạn mở thư viện mô hình (điều này có thể gây ra độ trễ khi tải). Nếu sai, các thư mục mô hình cấp gốc chỉ được tải khi bạn nhấp vào chúng."
+    },
+    "Comfy_ModelLibrary_NameFormat": {
+      "name": "Tên nào để hiển thị trong chế độ xem cây thư viện mô hình",
+      "tooltip": "Chọn \"tên tệp\" để hiển thị chế độ xem đơn giản của tên tệp thô (không có thư mục hoặc phần mở rộng \".safetensors\") trong danh sách mô hình. Chọn \"tiêu đề\" để hiển thị tiêu đề siêu dữ liệu mô hình có thể cấu hình."
+    },
+    "Comfy_Node_AutoSnapLinkToSlot": {
+      "name": "Tự động gắn liên kết vào khe nút",
+      "tooltip": "Khi kéo một liên kết qua một nút, liên kết tự động gắn vào một khe đầu vào khả dụng trên nút"
+    },
+    "Comfy_Node_BypassAllLinksOnDelete": {
+      "name": "Giữ tất cả các liên kết khi xóa nút",
+      "tooltip": "Khi xóa một nút, cố gắng kết nối lại tất cả các liên kết đầu vào và đầu ra của nó (bỏ qua nút đã xóa)"
+    },
+    "Comfy_Node_DoubleClickTitleToEdit": {
+      "name": "Nhấp đúp vào tiêu đề nút để chỉnh sửa"
+    },
+    "Comfy_Node_MiddleClickRerouteNode": {
+      "name": "Nhấp chuột giữa tạo một nút Reroute mới"
+    },
+    "Comfy_Node_Opacity": {
+      "name": "Độ mờ của nút"
+    },
+    "Comfy_Node_ShowDeprecated": {
+      "name": "Hiển thị các nút không dùng nữa trong tìm kiếm",
+      "tooltip": "Các nút không dùng nữa bị ẩn theo mặc định trong giao diện người dùng, nhưng vẫn hoạt động trong các quy trình làm việc hiện có sử dụng chúng."
+    },
+    "Comfy_Node_ShowExperimental": {
+      "name": "Hiển thị các nút thử nghiệm trong tìm kiếm",
+      "tooltip": "Các nút thử nghiệm được đánh dấu như vậy trong giao diện người dùng và có thể bị thay đổi đáng kể hoặc bị loại bỏ trong các phiên bản tương lai. Sử dụng cẩn thận trong các quy trình làm việc sản xuất"
+    },
+    "Comfy_Node_SnapHighlightsNode": {
+      "name": "Gắn nổi bật nút",
+      "tooltip": "Khi kéo một liên kết qua một nút có khe đầu vào khả dụng, làm nổi bật nút"
+    },
+    "Comfy_NodeBadge_NodeIdBadgeMode": {
+      "name": "Chế độ huy hiệu ID nút"
+    },
+    "Comfy_NodeBadge_NodeLifeCycleBadgeMode": {
+      "name": "Chế độ huy hiệu vòng đời nút"
+    },
+    "Comfy_NodeBadge_NodeSourceBadgeMode": {
+      "name": "Chế độ huy hiệu nguồn nút"
+    },
+    "Comfy_NodeLibrary_Bookmarks": {
+      "name": "Đánh dấu thư viện nút với tên hiển thị (không dùng nữa)"
+    },
+    "Comfy_NodeLibrary_Bookmarks_V2": {
+      "name": "Đánh dấu thư viện nút v2 với tên duy nhất"
+    },
+    "Comfy_NodeLibrary_BookmarksCustomization": {
+      "name": "Tùy chỉnh đánh dấu thư viện nút"
+    },
+    "Comfy_NodeSearchBoxImpl": {
+      "name": "Triển khai hộp tìm kiếm nút"
+    },
+    "Comfy_NodeSearchBoxImpl_NodePreview": {
+      "name": "Xem trước nút",
+      "tooltip": "Chỉ áp dụng cho triển khai mặc định"
+    },
+    "Comfy_NodeSearchBoxImpl_ShowCategory": {
+      "name": "Hiển thị danh mục nút trong kết quả tìm kiếm",
+      "tooltip": "Chỉ áp dụng cho triển khai mặc định"
+    },
+    "Comfy_NodeSearchBoxImpl_ShowIdName": {
+      "name": "Hiển thị tên ID nút trong kết quả tìm kiếm",
+      "tooltip": "Chỉ áp dụng cho triển khai mặc định"
+    },
+    "Comfy_NodeSearchBoxImpl_ShowNodeFrequency": {
+      "name": "Hiển thị tần suất nút trong kết quả tìm kiếm",
+      "tooltip": "Chỉ áp dụng cho triển khai mặc định"
+    },
+    "Comfy_Pointer_ClickBufferTime": {
+      "name": "Thời gian trễ nhấp chuột",
+      "tooltip": "Sau khi nhấn nút chuột xuống, đây là thời gian tối đa (tính bằng mili giây) mà chuyển động chuột có thể bị bỏ qua.\n\nGiúp ngăn các đối tượng bị đẩy không mong muốn nếu chuột di chuyển trong khi nhấp."
+    },
+    "Comfy_Pointer_ClickDrift": {
+      "name": "Độ trôi nhấp chuột (khoảng cách tối đa)",
+      "tooltip": "Nếu chuột di chuyển nhiều hơn khoảng cách này trong khi giữ nút xuống, nó được coi là kéo (thay vì nhấp).\n\nGiúp ngăn các đối tượng bị đẩy không mong muốn nếu chuột di chuyển trong khi nhấp."
+    },
+    "Comfy_Pointer_DoubleClickTime": {
+      "name": "Khoảng thời gian nhấp đúp (tối đa)",
+      "tooltip": "Thời gian tối đa tính bằng mili giây giữa hai lần nhấp của một lần nhấp đúp. Tăng giá trị này có thể giúp nếu nhấp đúp đôi khi không được đăng ký."
+    },
+    "Comfy_PreviewFormat": {
+      "name": "Định dạng hình ảnh xem trước",
+      "tooltip": "Khi hiển thị xem trước trong widget hình ảnh, chuyển đổi nó thành một hình ảnh nhẹ, ví dụ: webp, jpeg, webp;50, v.v."
+    },
+    "Comfy_PromptFilename": {
+      "name": "Nhắc tên tệp khi lưu quy trình làm việc"
+    },
+    "Comfy_Queue_ImageFit": {
+      "name": "Phù hợp hình ảnh hàng đợi"
+    },
+    "Comfy_Queue_MaxHistoryItems": {
+      "name": "Kích thước lịch sử hàng đợi",
+      "tooltip": "Số lượng tác vụ tối đa hiển thị trong lịch sử hàng đợi."
+    },
+    "Comfy_QueueButton_BatchCountLimit": {
+      "name": "Giới hạn số lượng lô",
+      "tooltip": "Số lượng tác vụ tối đa được thêm vào hàng đợi tại một lần nhấp nút"
+    },
+    "Comfy_RerouteBeta": {
+      "name": "Tham gia thử nghiệm beta reroute",
+      "tooltip": "Bật reroute gốc mới.\n\nReroute có thể được thêm bằng cách giữ alt và kéo từ một đường liên kết, hoặc trên menu liên kết.\n\nTắt tùy chọn này không phá hủy - reroute bị ẩn."
+    },
+    "Comfy_Server_LaunchArgs": {
+      "name": "Tham số khởi động máy chủ",
+      "tooltip": "Đây là các tham số thực tế được truyền cho máy chủ khi nó được khởi động."
+    },
+    "Comfy_Server_ServerConfigValues": {
+      "name": "Giá trị cấu hình máy chủ cho hiển thị giao diện người dùng",
+      "tooltip": "Giá trị cấu hình máy chủ được sử dụng chỉ cho hiển thị giao diện người dùng"
+    },
+    "Comfy_Settings_ExtensionPanel": {
+      "name": "Hiển thị bảng tiện ích mở rộng trong hộp thoại cài đặt"
+    },
+    "Comfy_Sidebar_Location": {
+      "name": "Vị trí thanh bên"
+    },
+    "Comfy_Sidebar_Size": {
+      "name": "Kích thước thanh bên"
+    },
+    "Comfy_SnapToGrid_GridSize": {
+      "name": "Kích thước lưới gắn",
+      "tooltip": "Khi kéo và thay đổi kích thước các nút trong khi giữ shift, chúng sẽ được căn chỉnh với lưới, điều này kiểm soát kích thước của lưới đó."
+    },
+    "Comfy_TextareaWidget_FontSize": {
+      "name": "Kích thước phông chữ widget textarea"
+    },
+    "Comfy_TextareaWidget_Spellcheck": {
+      "name": "Kiểm tra chính tả widget textarea"
+    },
+    "Comfy_TreeExplorer_ItemPadding": {
+      "name": "Đệm mục khám phá cây"
+    },
+    "Comfy_UseNewMenu": {
+      "name": "Sử dụng menu mới"
+    },
+    "Comfy_Validation_NodeDefs": {
+      "name": "Xác thực định nghĩa nút (chậm)",
+      "tooltip": "Được khuyến nghị cho các nhà phát triển nút. Điều này sẽ xác thực tất cả các định nghĩa nút khi khởi động."
+    },
+    "Comfy_Validation_Workflows": {
+      "name": "Xác thực quy trình làm việc"
+    },
+    "Comfy_Window_UnloadConfirmation": {
+      "name": "Hiển thị xác nhận khi đóng cửa sổ"
+    },
+    "Comfy_Workflow_ShowMissingModelsWarning": {
+      "name": "Hiển thị cảnh báo thiếu mô hình"
+    },
+    "Comfy_Workflow_ShowMissingNodesWarning": {
+      "name": "Hiển thị cảnh báo thiếu nút"
+    },
+    "Comfy_Workflow_SortNodeIdOnSave": {
+      "name": "Sắp xếp ID nút khi lưu quy trình làm việc"
+    },
+    "Comfy_Workflow_WorkflowTabsPosition": {
+      "name": "Vị trí các tab quy trình làm việc đã mở"
+    },
+    "LiteGraph_Canvas_MaximumFps": {
+      "name": "FPS tối đa",
+      "tooltip": "Số khung hình tối đa mỗi giây mà canvas được phép hiển thị. Giới hạn sử dụng GPU với chi phí mượt mà. Nếu 0, tốc độ làm mới màn hình được sử dụng. Mặc định: 0"
+    },
+    "pysssss_SnapToGrid": {
+      "name": "Luôn gắn vào lưới"
+    }
+  },
+  "searchWorkflows": "Tìm kiếm quy trình làm việc",
+  "searchSettings": "Tìm kiếm cài đặt",
+  "searchNodes": "Tìm kiếm nút",
+  "searchModels": "Tìm kiếm mô hình",
+  "searchKeybindings": "Tìm kiếm phím tắt",
+  "searchExtensions": "Tìm kiếm tiện ích mở rộng",
+  "noResultsFound": "Không tìm thấy kết quả",
+  "searchFailedMessage": "Chúng tôi không thể tìm thấy bất kỳ cài đặt nào khớp với tìm kiếm của bạn. Hãy thử điều chỉnh các từ tìm kiếm của bạn.",
+  "noTasksFound": "Không tìm thấy tác vụ",
+  "noTasksFoundMessage": "Không có tác vụ nào trong hàng đợi.",
+  "newFolder": "Thư mục mới",
+  "sideToolbar": {
+    "themeToggle": "Chuyển đổi chủ đề",
+    "logout": "Đăng xuất",
+    "queue": "Hàng đợi",
+    "nodeLibrary": "Thư viện nút",
+    "workflows": "Quy trình làm việc",
+    "browseTemplates": "Duyệt các mẫu ví dụ",
+    "openWorkflow": "Mở quy trình làm việc trong hệ thống tệp cục bộ",
+    "newBlankWorkflow": "Tạo một quy trình làm việc trống mới",
+    "nodeLibraryTab": {
+      "sortOrder": "Thứ tự sắp xếp"
+    },
+    "modelLibrary": "Thư viện mô hình",
+    "downloads": "Tải xuống",
+    "queueTab": {
+      "showFlatList": "Hiển thị danh sách phẳng",
+      "backToAllTasks": "Quay lại tất cả tác vụ",
+      "containImagePreview": "Điền xem trước hình ảnh",
+      "coverImagePreview": "Phù hợp xem trước hình ảnh",
+      "clearPendingTasks": "Xóa các tác vụ đang chờ",
+      "filter": "Lọc đầu ra",
+      "filters": {
+        "hideCached": "Ẩn đã lưu trong bộ nhớ cache",
+        "hideCanceled": "Ẩn đã hủy"
+      }
+    }
+  },
+  "menu": {
+    "hideMenu": "Ẩn menu",
+    "showMenu": "Hiển thị menu",
+    "batchCount": "Số lượng lô",
+    "batchCountTooltip": "Số lần quy trình làm việc được xếp hàng",
+    "autoQueue": "Tự động xếp hàng",
+    "disabled": "Tắt",
+    "disabledTooltip": "Quy trình làm việc sẽ không được xếp hàng tự động",
+    "instant": "Ngay lập tức",
+    "instantTooltip": "Quy trình làm việc sẽ được xếp hàng ngay lập tức sau khi một lần tạo kết thúc",
+    "change": "Khi thay đổi",
+    "changeTooltip": "Quy trình làm việc sẽ được xếp hàng khi có thay đổi",
+    "queueWorkflow": "Xếp hàng quy trình làm việc (Shift để xếp hàng đầu)",
+    "queueWorkflowFront": "Xếp hàng quy trình làm việc đầu tiên",
+    "queue": "Hàng đợi",
+    "interrupt": "Hủy chạy hiện tại",
+    "refresh": "Làm mới định nghĩa nút",
+    "clipspace": "Mở Clipspace",
+    "resetView": "Đặt lại chế độ xem canvas",
+    "clear": "Xóa quy trình làm việc",
+    "toggleBottomPanel": "Chuyển đổi bảng dưới cùng"
+  },
+  "tabMenu": {
+    "duplicateTab": "Nhân bản tab",
+    "closeTab": "Đóng tab",
+    "closeTabsToLeft": "Đóng các tab bên trái",
+    "closeTabsToRight": "Đóng các tab bên phải",
+    "closeOtherTabs": "Đóng các tab khác"
+  },
+  "templateWorkflows": {
+    "title": "Bắt đầu với một mẫu",
+    "template": {
+      "default": "Tạo hình ảnh",
+      "image2image": "Hình ảnh sang hình ảnh",
+      "upscale": "Nâng cấp 2 lần",
+      "flux_schnell": "Flux Schnell"
+    }
+  },
+  "graphCanvasMenu": {
+    "zoomIn": "Phóng to",
+    "zoomOut": "Thu nhỏ",
+    "resetView": "Đặt lại chế độ xem",
+    "fitView": "Phù hợp chế độ xem",
+    "selectMode": "Chế độ chọn",
+    "panMode": "Chế độ di chuyển",
+    "toggleLinkVisibility": "Chuyển đổi hiển thị liên kết"
+  },
+  "electronFileDownload": {
+    "inProgress": "Đang tiến hành",
+    "pause": "Tạm dừng tải xuống",
+    "paused": "Đã tạm dừng",
+    "resume": "Tiếp tục tải xuống",
+    "cancel": "Hủy tải xuống",
+    "cancelled": "Đã hủy"
+  }
+}
