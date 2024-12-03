@@ -83,9 +83,7 @@ export class ChangeTracker {
   }
 
   updateModified() {
-    api.dispatchEvent(
-      new CustomEvent('graphChanged', { detail: this.activeState })
-    )
+    api.dispatchCustomEvent('graphChanged', this.activeState)
 
     // Get the workflow from the store as ChangeTracker is raw object, i.e.
     // `this.workflow` is not reactive.
@@ -407,7 +405,7 @@ export class ChangeTracker {
     return false
   }
 
-  static graphDiff(a: ComfyWorkflowJSON, b: ComfyWorkflowJSON) {
+  private static graphDiff(a: ComfyWorkflowJSON, b: ComfyWorkflowJSON) {
     function sortGraphNodes(graph: ComfyWorkflowJSON) {
       return {
         links: graph.links,
