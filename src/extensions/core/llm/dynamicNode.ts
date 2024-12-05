@@ -59,80 +59,91 @@ app.registerExtension({
 
     const onConnectionsChange = nodeType.prototype.onConnectionsChange
     nodeType.prototype.onConnectionsChange = function (
-      slotType: any,
-      slot_idx: any,
-      event: any,
-      link_info: any,
-      node_slot: any
+      connectionType: any,
+      connectionIndex: any,
+      connectionEvent: any,
+      connectionInfo: any,
+      targetSlot: any
     ) {
-      const me = onConnectionsChange?.apply(this, arguments)
+      // Call parent handler if it exists
+      const result = onConnectionsChange?.apply(this, arguments)
 
+      // Only handle changes to our dynamic input
       if (
-        !(node_slot.name.startsWith(inputLabel) && node_slot.type === inputType)
+        !(
+          targetSlot.name.startsWith(inputLabel) &&
+          targetSlot.type === inputType
+        )
       ) {
         return
       }
 
-      if (slotType === TypeSlot.Input) {
-        if (link_info && event === TypeSlotEvent.Connect) {
-          // get the parent (left side node) from the link
-          const fromNode = this.graph._nodes.find(
-            (otherNode: any) => otherNode.id == link_info.origin_id
+      if (connectionType === TypeSlot.Input) {
+        // Handle new connections
+        if (connectionInfo && connectionEvent === TypeSlotEvent.Connect) {
+          // get the source node (left side) from the connection
+          const sourceNode = this.graph._nodes.find(
+            (node: any) => node.id == connectionInfo.origin_id
           )
 
-          if (fromNode) {
-            // make sure there is a parent for the link
-            const parent_link = fromNode.outputs[link_info.origin_slot]
-            if (parent_link) {
-              node_slot.type = parent_link.type
-              node_slot.name = `${inputLabel}_`
+          if (sourceNode) {
+            // make sure there is a valid source output for the connection
+            const sourceOutput = sourceNode.outputs[connectionInfo.origin_slot]
+            if (sourceOutput) {
+              targetSlot.type = sourceOutput.type
+              targetSlot.name = `${inputLabel}_`
             }
           }
-        } else if (event === TypeSlotEvent.Disconnect) {
-          this.removeInput(slot_idx)
+        }
+        // Handle disconnections
+        else if (connectionEvent === TypeSlotEvent.Disconnect) {
+          this.removeInput(connectionIndex)
         }
 
-        // Track each slot name so we can index the uniques
-        let idx = 0
-        let slot_tracker: any = {}
+        // Update slot names to ensure uniqueness
+        let currentIndex = 0
+        let slotNameCounts: any = {}
+
         for (const slot of this.inputs) {
+          // Skip slots that aren't our dynamic input type
           if (
             !(slot.name.startsWith(`${inputLabel}`) && slot.type === inputType)
           ) {
-            idx += 1
+            currentIndex += 1
             continue
           }
 
+          // Remove unconnected slots
           if (slot.link === null) {
-            this.removeInput(idx)
+            this.removeInput(currentIndex)
             continue
           }
-          idx += 1
-          const name = slot.name.split('_')[0]
+          currentIndex += 1
 
-          // Correctly increment the count in slot_tracker
-          let count = (slot_tracker[name] || 0) + 1
-          slot_tracker[name] = count
-
-          // Update the slot name with the count if greater than 1
-          slot.name = `${name}_${count}`
+          // Update slot names with incrementing numbers
+          const baseName = slot.name.split('_')[0]
+          let count = (slotNameCounts[baseName] || 0) + 1
+          slotNameCounts[baseName] = count
+          slot.name = `${baseName}_${count}`
         }
 
-        // check that the last slot is a dynamic entry....
-        let last = this.inputs[this.inputs.length - 1]
+        // Ensure there's always an empty slot for new connections
+        let lastSlot = this.inputs[this.inputs.length - 1]
         if (
-          last === undefined ||
-          last.name != inputLabel ||
-          last.type != inputType
+          lastSlot === undefined ||
+          lastSlot.name != inputLabel ||
+          lastSlot.type != inputType
         ) {
           this.addInput(inputLabel, inputType)
         }
 
-        // force the node to resize itself for the new/deleted connections
+        // Refresh canvas to show changes
         this?.graph?.setDirtyCanvas(true)
-        return me
+
+        return result
       }
     }
+
     return nodeType
   }
 })
