@@ -1967,6 +1967,7 @@ export class ComfyApp {
             nodeData['input']['optional']
           )
         }
+
         const config: {
           minWidth: number
           minHeight: number
@@ -1996,9 +1997,14 @@ export class ComfyApp {
             }
           } else {
             // Node connection inputs
-            const inputOptions = inputIsRequired
+            const inputOptions: Record<any, any> = inputIsRequired
               ? {}
               : { shape: LiteGraph.SlotShape.HollowCircle }
+
+            if (inputName === '\n') {
+              inputOptions.shape = LiteGraph.SlotShape.Arrow
+            }
+
             this.addInput(inputName, type, inputOptions)
             widgetCreated = false
           }
@@ -2010,6 +2016,10 @@ export class ComfyApp {
             }
             if (inputData[1]?.forceInput) {
               config.widget.options.forceInput = true
+            }
+            if (inputData[1]?.dynamic) {
+              config.widget.options.forceInput = true
+              config.widget.options.defaultInput = true
             }
             if (inputData[1]?.defaultInput) {
               config.widget.options.defaultInput = true
@@ -2031,6 +2041,11 @@ export class ComfyApp {
           const outputOptions = outputIsList
             ? { shape: LiteGraph.GRID_SHAPE }
             : {}
+
+          if (outputName.includes('\n')) {
+            outputOptions.shape = LiteGraph.ARROW_SHAPE
+          }
+
           this.addOutput(outputName, output, outputOptions)
         }
 
