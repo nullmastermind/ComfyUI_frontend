@@ -41,15 +41,21 @@ app.registerExtension({
     }
 
     // We'll handle the first dynamic input for now
-    const { label: addPrefix, type: addType } = dynamicInputs[0]
+    const { label: inputLabel, type: inputType } = dynamicInputs[0]
 
-    // const onNodeCreated = nodeType.prototype.onNodeCreated
-    // nodeType.prototype.onNodeCreated = async function () {
-    //   const me = onNodeCreated?.apply(this)
-    //   // start with a new dynamic input
-    //   this.addInput(addPrefix, addType)
-    //   return me
-    // }
+    const onNodeCreated = nodeType.prototype.onNodeCreated
+    nodeType.prototype.onNodeCreated = async function () {
+      const result = onNodeCreated?.apply(this)
+      const widgetIndex = this.widgets.findIndex(
+        (widget: any) => widget.name === inputLabel
+      )
+      if (widgetIndex !== -1) {
+        this.removeInput(widgetIndex)
+      }
+      // start with a new dynamic input
+      this.addInput(inputLabel, inputType)
+      return result
+    }
 
     const onConnectionsChange = nodeType.prototype.onConnectionsChange
     nodeType.prototype.onConnectionsChange = function (
@@ -62,7 +68,7 @@ app.registerExtension({
       const me = onConnectionsChange?.apply(this, arguments)
 
       if (
-        !(node_slot.name.startsWith(addPrefix) && node_slot.type === addType)
+        !(node_slot.name.startsWith(inputLabel) && node_slot.type === inputType)
       ) {
         return
       }
@@ -79,7 +85,7 @@ app.registerExtension({
             const parent_link = fromNode.outputs[link_info.origin_slot]
             if (parent_link) {
               node_slot.type = parent_link.type
-              node_slot.name = `${addPrefix}_`
+              node_slot.name = `${inputLabel}_`
             }
           }
         } else if (event === TypeSlotEvent.Disconnect) {
@@ -91,7 +97,7 @@ app.registerExtension({
         let slot_tracker: any = {}
         for (const slot of this.inputs) {
           if (
-            !(slot.name.startsWith(`${addPrefix}`) && slot.type === addType)
+            !(slot.name.startsWith(`${inputLabel}`) && slot.type === inputType)
           ) {
             idx += 1
             continue
@@ -116,10 +122,10 @@ app.registerExtension({
         let last = this.inputs[this.inputs.length - 1]
         if (
           last === undefined ||
-          last.name != addPrefix ||
-          last.type != addType
+          last.name != inputLabel ||
+          last.type != inputType
         ) {
-          this.addInput(addPrefix, addType)
+          this.addInput(inputLabel, inputType)
         }
 
         // force the node to resize itself for the new/deleted connections
