@@ -1,10 +1,11 @@
 import { ComfyWidgets } from '@/scripts/widgets'
 import { app } from '@/scripts/app'
+import { NodeData } from '@/extensions/core/llm/commonTypes'
 
 app.registerExtension({
   name: 'llm.ShowText',
-  async beforeRegisterNodeDef(nodeType: any, nodeData: any, app: any) {
-    if (nodeData.name.endsWith('OutputText')) {
+  async beforeRegisterNodeDef(nodeType: any, nodeData: NodeData, app: any) {
+    if (nodeData.output?.includes('OUTPUT_TEXT')) {
       function populateTextWidgets(this: any, textContent: string | string[]) {
         if (this.widgets) {
           for (let i = this.widgets.length - 1; i >= 0; i--) {
@@ -41,6 +42,14 @@ app.registerExtension({
           this.onResize?.(newSize)
           app.graph.setDirtyCanvas(true, false)
         })
+      }
+
+      for (let i = nodeData.output.length - 1; i >= 0; i--) {
+        if (nodeData.output[i] === 'OUTPUT_TEXT') {
+          nodeData.output.splice(i, 1)
+          nodeData.output_name?.splice(i, 1)
+          nodeData.output_is_list?.splice(i, 1)
+        }
       }
 
       // When the node is executed we will be sent the input text, display this in the widget

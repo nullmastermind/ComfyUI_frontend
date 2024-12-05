@@ -1,4 +1,5 @@
 import { app } from '@/scripts/app'
+import { NodeData } from '@/extensions/core/llm/commonTypes'
 
 const TypeSlot: any = {
   Input: 1,
@@ -12,23 +13,35 @@ const TypeSlotEvent: any = {
 
 app.registerExtension({
   name: 'llm.DynamicInputNode',
-  async beforeRegisterNodeDef(nodeType: any, nodeData: any, app: any) {
-    // Parse the nodeData.name for dynamic, type, and label
-    const nameParts: string[] = nodeData.name.split(' ')
-    const isDynamic = nameParts.includes('--dynamic')
-    const typePart: string | undefined = nameParts.find((part: string) =>
-      part.startsWith('--type=')
-    )
-    const labelPart: string | undefined =
-      nameParts.find((part: string) => part.startsWith('--label=')) ||
-      typePart?.toUpperCase()
+  async beforeRegisterNodeDef(nodeType: any, nodeData: NodeData, app: any) {
+    // Find dynamic inputs from nodeData.input
+    const dynamicInputs = []
+    if (nodeData.input?.required) {
+      for (const entry of Object.entries(nodeData.input.required)) {
+        const [inputName, value] = entry
+        const [inputType, config] = value as [unknown, { dynamic?: boolean }]
+        if (config?.dynamic) {
+          dynamicInputs.push({ label: inputName, type: inputType })
+        }
+      }
+    }
 
-    if (!isDynamic || !typePart || !labelPart) {
+    if (nodeData.input?.optional) {
+      for (const entry of Object.entries(nodeData.input.optional)) {
+        const [inputName, value] = entry
+        const [inputType, config] = value as [unknown, { dynamic?: boolean }]
+        if (config?.dynamic) {
+          dynamicInputs.push({ label: inputName, type: inputType })
+        }
+      }
+    }
+
+    if (dynamicInputs.length === 0) {
       return
     }
 
-    const addType = typePart.split('=')[1]
-    const addPrefix = labelPart.split('=')[1]
+    // We'll handle the first dynamic input for now
+    const { label: addPrefix, type: addType } = dynamicInputs[0]
 
     const onNodeCreated = nodeType.prototype.onNodeCreated
     nodeType.prototype.onNodeCreated = async function () {
