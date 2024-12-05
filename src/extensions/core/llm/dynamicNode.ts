@@ -43,13 +43,13 @@ app.registerExtension({
     // We'll handle the first dynamic input for now
     const { label: addPrefix, type: addType } = dynamicInputs[0]
 
-    const onNodeCreated = nodeType.prototype.onNodeCreated
-    nodeType.prototype.onNodeCreated = async function () {
-      const me = onNodeCreated?.apply(this)
-      // start with a new dynamic input
-      this.addInput(addPrefix, addType)
-      return me
-    }
+    // const onNodeCreated = nodeType.prototype.onNodeCreated
+    // nodeType.prototype.onNodeCreated = async function () {
+    //   const me = onNodeCreated?.apply(this)
+    //   // start with a new dynamic input
+    //   this.addInput(addPrefix, addType)
+    //   return me
+    // }
 
     const onConnectionsChange = nodeType.prototype.onConnectionsChange
     nodeType.prototype.onConnectionsChange = function (
