@@ -2001,7 +2001,7 @@ export class ComfyApp {
               ? {}
               : { shape: LiteGraph.SlotShape.HollowCircle }
 
-            if (inputName === '\n') {
+            if (type === 'ROUTE_DATA') {
               inputOptions.shape = LiteGraph.SlotShape.Arrow
             }
 
@@ -2042,7 +2042,7 @@ export class ComfyApp {
             ? { shape: LiteGraph.GRID_SHAPE }
             : {}
 
-          if (outputName.includes('\n')) {
+          if (nodeData['output']?.[o] === 'ROUTE_DATA') {
             outputOptions.shape = LiteGraph.ARROW_SHAPE
           }
 
