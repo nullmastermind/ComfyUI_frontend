@@ -2,11 +2,10 @@
 import { api } from './api'
 import './domWidget'
 import type { ComfyApp } from './app'
-import type { LGraphNode } from '@comfyorg/litegraph'
+import type { IWidget, LGraphNode } from '@comfyorg/litegraph'
 import { InputSpec } from '@/types/apiTypes'
 import { useSettingStore } from '@/stores/settingStore'
 import { useToastStore } from '@/stores/toastStore'
-import type { IWidget } from '@comfyorg/litegraph'
 
 export type ComfyWidgetConstructor = (
   node: LGraphNode,
@@ -438,8 +437,9 @@ export const ComfyWidgets: Record<string, ComfyWidgetConstructor> = {
     const defaultVal = inputData[1].default || ''
     const multiline = !!inputData[1].multiline
 
-    let res
-    if (multiline) {
+    let res: any
+
+    if (multiline && node.type === 'Output Text') {
       res = addMultilineWidget(
         node,
         inputName,
@@ -448,7 +448,9 @@ export const ComfyWidgets: Record<string, ComfyWidgetConstructor> = {
       )
     } else {
       res = {
-        widget: node.addWidget('text', inputName, defaultVal, () => {}, {})
+        widget: node.addWidget('text', inputName, defaultVal, () => {}, {
+          multiline
+        })
       }
     }
 
