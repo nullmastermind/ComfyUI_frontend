@@ -1590,16 +1590,21 @@ export class ComfyApp {
 
       node.bgcolor = adjustColor(bgColor, adjustments)
 
-      // const origStroke = arguments[1].stroke
-      // arguments[1].stroke = function () {
-      //   // Disable slot outline (output)
-      //   if (this.strokeStyle !== '#000000' || this.lineWidth !== 1) {
-      //     origStroke.apply(this, arguments)
-      //   } else {
-      //     // this.strokeStyle = '#DFDFDF'
-      //     // origStroke.apply(this, arguments)
-      //   }
-      // }
+      // Disable the outline of the output slot
+      if (!arguments[1].stroke.hooked) {
+        const origStroke = arguments[1].stroke
+        arguments[1].stroke = function () {
+          if (this.strokeStyle === '#000000') {
+            this.strokeStyle = 'transparent'
+          }
+          origStroke.apply(this, arguments)
+        }
+
+        Object.defineProperty(arguments[1].stroke, 'hooked', {
+          value: true,
+          writable: false
+        })
+      }
 
       const res = origDrawNode.apply(this, arguments)
 
